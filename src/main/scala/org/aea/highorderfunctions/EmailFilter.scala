@@ -70,9 +70,11 @@ object EmailFilter {
   // ***********************************
 
   /**
-    * create a function of type A => Boolean where the result of the function is true if *any* of the functions passed in would return true
+    * create a function of type A => Boolean where the result of the function is true
+    * if *any* of the functions passed in would return true
     *
-    * calls each passed in function until one of them returns true, if none of them return true, then return false
+    * calls each passed in function until one of them returns true,
+    * if none of them return true, then return false
     *
     * @param functions to check
     * @tparam A what gets passed into the function
@@ -83,7 +85,8 @@ object EmailFilter {
   }
 
   /**
-    * create a function of type A => Boolean where the result of the function is true if *none* of the functions passed in would return true
+    * create a function of type A => Boolean where the result of the function is true
+    * if *none* of the functions passed in would return true
     *
     * calls each passed in function until one of them returns false, if none of them return false, then return true
     *
@@ -119,7 +122,8 @@ object EmailFilter {
   }
 
   /**
-    * function that takes a [[Set[String]] representing senders and returns a [[EmailFilterFunction]] that returns true if the email was *not* sent by one of these
+    * function that takes a [[Set[String]] representing senders and returns a
+    * [[EmailFilterFunction]] that returns true if the email was *not* sent by one of these
     *
     * this will create a new function by applying [[sentByOneOf]] with the [[Set[String]] args
     * and then apply the [[complement]] function to the function returned
@@ -131,16 +135,20 @@ object EmailFilter {
   val notSentByAnyOf: Set[String] => EmailFilterFunction = sentByOneOf.andThen(g => complement(g))
 
   /**
-    * function that takes an [[Integer]] and return a [[EmailFilterFunction]] that returns true if the email text is at least the minimum size
+    * function that takes an [[Integer]] and return a [[EmailFilterFunction]] that
+    * returns true if the email text is at least the minimum size
     *
-    * [[EmailFilterFunction]] is the return value (a function that takes an Email and returns a Boolean) ([[Email]] => [[Boolean]])
+    * [[EmailFilterFunction]] is the return value (a function that takes an Email and
+    * returns a Boolean) ([[Email]] => [[Boolean]])
     */
   val minimumSize: Int => EmailFilterFunction = min => email => sizeConstraint(ge, min, email)
 
   /**
-    * function that takes an [[Integer]] and return a [[EmailFilterFunction]] that returns true if the email text is at least the maximum size
+    * function that takes an [[Integer]] and return a [[EmailFilterFunction]] that returns
+    * true if the email text is at least the maximum size
     *
-    * [[EmailFilterFunction]] is the return value (a function that takes an Email and returns a Boolean) ([[Email]] => [[Boolean]])
+    * [[EmailFilterFunction]] is the return value (a function that takes an Email and returns a Boolean)
+    * ([[Email]] => [[Boolean]])
     */
   val maximumSize: Int => EmailFilterFunction = max => email => sizeConstraint(le, max, email)
 }
